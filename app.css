@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    padding:0;
+    background: rgb(55,55,55);
+background: radial-gradient(circle, rgba(30,30,30,1) 0%, rgba(05,05,05,1) 100%);
+}
+p {
+    margin-bottom: 5px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px;
+    position: relative;
+  }
+  a:visited {
+      color: white;
+  }
+  a:hover {
+      color: white;
+      text-decoration: none;
+  }
+  a:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #fff;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+  }
+  a:hover:after { 
+    width: 100%; 
+    left: 0; 
+  }
+
+.color-style {
+    color:white;
+}
+.output__color {
+    transition: .7s ease;
+    cursor: pointer;
+}
+.output__color:hover {
+   transform: scale(1.07);
+   z-index: 9999;
+   box-shadow: 0 1px 1px rgba(0,0,0,0.06), 
+   0 2px 2px rgba(0,0,0,0.06), 
+   0 4px 4px rgba(0,0,0,0.06), 
+   0 8px 8px rgba(0,0,0,0.06), 
+   0 16px 16px rgba(0,0,0,0.06), 
+   0 32px 32px rgba(0,0,0,0.06);
+
+}
+.output__color h2 {
+    text-shadow: 0px 0px 13px rgba(0,0,0,.7);
+    font-size: 1.5rem;
+}
+
+.logo h2{
+    cursor:pointer;
+    font-size: 3rem;
+}
+.light {
+    font-weight: 100;
+}
+
+.sub-heading {
+    letter-spacing: 2px;
+}
+.sphere {
+    margin: 0 auto;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: block;
+    cursor:pointer;
+    transition: .18s ease-in-out;
+}
+
+.sphere:hover {
+    transform: scale(1.2);
+}
+
+.color-name {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.colorful { 
+    background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet); /* Standard syntax (must be last) */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+ .copied-to__clipboard {
+    animation: slide-up 0.5s ease, slide-down 0.8s ease;
+    animation-delay: 0s, 2.5s;
+    color:#fff;
+    text-shadow: 0px 2px 10px rgba(0,0,0,.5);
+}
+
+.output {
+    transition: height .2s ease;
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+@keyframes slide-down {
+    0% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(20%);
+    }
+}
