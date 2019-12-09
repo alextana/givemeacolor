@@ -14,6 +14,7 @@ Array of colours taken from Name That Color's Source Code ->  http://chir.ag/pro
 Checklist {
     create algorithm to convert and divide colours in arrays = [x]
     output the arrays to the frontend based on user input = [x]
+    create a copy to clipboard handler = [x]
     create front end hover/tap effect to choose light/dark colours {will maybe have to be resolution based} = []
     front end converter based on user input = []
     tweak the algorithm's hue/luminance values to display the maximum possible amount of colours (1550ish) = []
@@ -1604,30 +1605,30 @@ let white, gray, lightGray, darkGray, black, red, lightRed, darkRed, lightOrange
 // capitalise the name of the first array inex in order to display the right arays
 // when hoverng for light or dark colours in the front end
 // use toLower when calling the function in order to reference the correct array name
-white = ['White'];
-gray = ['Gray'];
-lightGray = ['lightGray'];
-darkGray = ['darkGray'];
-black = ['Black'];
-red = ['Red'];
-lightRed = ['lightRed'];
-darkRed = ['darkRed'];
-lightOrange = ['lightOrange'];
-orange = ['Orange'];
-brown = ['Brown'];
-darkYellow = ['darkYellow'];
-yellow = ['Yellow'];
-lightYellow = ['lightYellow'];
-green = ['Green'];
-darkGreen = ['darkGreen'];
-lightGreen = ['lightGreen'];
-lightBlue = ['lightBlue'];
-blue = ['Blue'];
-darkBlue = ['darkBlue'];
-lightPurple = ['lightPurple'];
-purple = ['Purple'];
-pink = ['Pink'];
-darkPurple = ['darkPurple'];
+    white = ['White'];
+    gray = ['Gray'];
+    lightGray = ['lightGray'];
+    darkGray = ['darkGray'];
+    black = ['Black'];
+    red = ['Red'];
+    lightRed = ['lightRed'];
+    darkRed = ['darkRed'];
+    lightOrange = ['lightOrange'];
+    orange = ['Orange'];
+    brown = ['Brown'];
+    darkYellow = ['darkYellow'];
+    yellow = ['Yellow'];
+    lightYellow = ['lightYellow'];
+    green = ['Green'];
+    darkGreen = ['darkGreen'];
+    lightGreen = ['lightGreen'];
+    lightBlue = ['lightBlue'];
+    blue = ['Blue'];
+    darkBlue = ['darkBlue'];
+    lightPurple = ['lightPurple'];
+    purple = ['Purple'];
+    pink = ['Pink'];
+    darkPurple = ['darkPurple'];
 
 // nested array for the colour types
 // display only the balanced shade, light and dark will be a hover effect
@@ -1751,10 +1752,8 @@ function pushColorsToArrays() {
 }
 // call function to push into the arrays
 pushColorsToArrays();
-/* #### TESTING CODE ##### */
-// // output colors to the front end for testing
-// testing output -- this function outputs the colours to the front-end
-// so I can physically see if the right colors are in the right array
+/* #### OUTPUT CODE ##### */
+// this function outputs the selected array to the front end
 const outputColors = (selectedArray) => {
     for (var x = 0; x < selectedArray.length; x++) {
         let output, colorBox, colorOutput;
@@ -1766,14 +1765,13 @@ const outputColors = (selectedArray) => {
         // only outputting hex for now but will add a converter in the future
         colorBox.innerHTML = `<h2 class="text-white color-output__text">${colorOutput}</h2>`;
         output.appendChild(colorBox);
-        
         // click handler for copy to clipboard
         colorBox.addEventListener('click', function(){
             // listens for clicks, creates the copied to clipboard text
             let textToCopy, textArea, copiedContainer;
-            copiedContainer = document.createElement('p');
+            copiedContainer = document.createElement('div');
             copiedContainer.classList.add('d-none', 'copied-to__clipboard', 'slide-down');
-            copiedContainer.innerText = 'Copied to Clipboard!';
+            copiedContainer.innerHTML = '<p>Copied to Clipboard!</p>';
             textToCopy = colorBox.innerText;
             // handles the copying creating a temporary textarea to use select()
             textArea = document.createElement('textarea');
@@ -1786,9 +1784,11 @@ const outputColors = (selectedArray) => {
             colorBox.appendChild(copiedContainer);
             // shows and removes the Copied to clipboard text
             copiedContainer.classList.remove('d-none');
+            colorBox.classList.add('no-pointer__events');
             // timeout to make the COPIED TO CLIPBOARD text disappear after 3 seconds
             window.setTimeout(function() {
                 copiedContainer.classList.add('d-none');
+                colorBox.classList.remove('no-pointer__events');
                 colorBox.removeChild(copiedContainer);
             }, 3000);
         });
@@ -1833,15 +1833,18 @@ const displaySwatches = () => {
             colorText.innerHTML = arrayContainer[i][0];
             colorText.classList.add('color__text', 'py-3', 'text-white');
             // edit the classes for the swatch container
-            sphereContainer.classList.add('col','text-center','p-1');
+            sphereContainer.classList.add('col','text-center','p-1', 'swatch-container');
             sphereElement.classList.add('sphere');
             sphereElement.style.background = arrayContainer[i][0];
+            // place the elements in the dom
             sphereContainer.appendChild(sphereElement);
             swatchesOutput.appendChild(sphereContainer);
             sphereContainer.appendChild(colorText);
             // use to lower to be able to call light and dark arrays on hover
             arrayNameToLower = arrayContainer[i][0].toLowerCase();
             sphereElement.setAttribute('onclick', `refreshOutput();outputColors(${arrayNameToLower})`);
+            console.log(sphereContainer)
+            // display the selectors for light, dark and balanced arrays onmouseover - [to do]
         } else {
             null
         }
