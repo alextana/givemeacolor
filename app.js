@@ -24,13 +24,8 @@ Checklist {
 
 'use strict';
 
-// vanilla js doc ready
-document.addEventListener("DOMContentLoaded", function() {
-    displaySwatches();
- });
 
-
-
+// color array
 let names = [
     ["000000", "Black"],
     ["000080", "Navy Blue"],
@@ -1599,43 +1594,173 @@ let names = [
     ["FFFFF0", "Ivory"],
     ["FFFFFF", "White"]
 ];
-let white, gray, lightGray, darkGray, black, red, lightRed, darkRed, lightOrange,
-    orange, brown, darkYellow, yellow, lightYellow, green, darkGreen, lightGreen,
-    lightBlue, blue, darkBlue, lightPurple, purple, pink, darkPurple;
-// capitalise the name of the first array inex in order to display the right arays
-// when hoverng for light or dark colours in the front end
-// use toLower when calling the function in order to reference the correct array name
-    white = ['White'];
-    gray = ['Gray'];
-    lightGray = ['lightGray'];
-    darkGray = ['darkGray'];
-    black = ['Black'];
-    red = ['Red'];
-    lightRed = ['lightRed'];
-    darkRed = ['darkRed'];
-    lightOrange = ['lightOrange'];
-    orange = ['Orange'];
-    brown = ['Brown'];
-    darkYellow = ['darkYellow'];
-    yellow = ['Yellow'];
-    lightYellow = ['lightYellow'];
-    green = ['Green'];
-    darkGreen = ['darkGreen'];
-    lightGreen = ['lightGreen'];
-    lightBlue = ['lightBlue'];
-    blue = ['Blue'];
-    darkBlue = ['darkBlue'];
-    lightPurple = ['lightPurple'];
-    purple = ['Purple'];
-    pink = ['Pink'];
-    darkPurple = ['darkPurple'];
 
-// nested array for the colour types
-// display only the balanced shade, light and dark will be a hover effect
-// on larger screens and tap on smaller ones
-const arrayContainer = [white, gray, black, red, orange,
-                        brown, yellow, green,
-                        blue, purple];
+
+
+// array with objects where my colors are stored
+let colors = [
+    {
+        name: 'White',
+        values : []
+    },
+    {
+        name: 'Black',
+        values : []
+    },
+    {
+        name: 'Gray',
+        values : {
+            light : {
+                name : 'lightGray',
+                values : []
+            },
+            balanced : {
+                name : 'gray',
+                values : []
+            },
+            dark : {
+                name : 'darkGray',
+                values : []
+            }
+        }
+    },
+    {
+        name: 'Red',
+        values : {
+            light : {
+                name : 'lightRed',
+                values : []
+            },
+            balanced : {
+                name : 'red',
+                values : []
+            },
+            dark : {
+                name : 'darkRed',
+                values : []
+            }
+        }
+    },
+    {
+        name: 'Orange',
+        values : {
+            light : {
+                name : 'lightOrange',
+                values : []
+            },
+            balanced : {
+                name : 'orange',
+                values : []
+            },
+            dark : {
+                name : 'darkOrange',
+                values : []
+            }
+        }
+    },
+    {
+        name: 'Yellow',
+        values : {
+            light : {
+                name : 'lightYellow',
+                values : []
+            },
+            balanced : {
+                name : 'yellow',
+                values : []
+            },
+            dark : {
+                name : 'darkYellow',
+                values : []
+            }
+        }
+    },
+    {
+        name: 'Green',
+        values : {
+            light : {
+                name : 'lightGreen',
+                values : []
+            },
+            balanced : {
+                name : 'green',
+                values : []
+            },
+            dark : {
+                name : 'darkGreen',
+                values : []
+            }
+        }
+    },
+    {
+        name: 'Blue',
+        values : {
+            light : {
+                name : 'lightBlue',
+                values : []
+            },
+            balanced : {
+                name : 'blue',
+                values : []
+            },
+            dark : {
+                name : 'darkBlue',
+                values : []
+            }
+        }
+    },
+    {
+        name: 'Purple',
+        values : {
+            light : {
+                name : 'lightPurple',
+                values : []
+            },
+            balanced : {
+                name : 'purple',
+                values : []
+            },
+            dark : {
+                name : 'darkPurple',
+                values : []
+            }
+        }
+    },
+];
+
+// smaller array group
+let white, gray, lightGray, darkGray, black, red, lightRed, darkRed, lightOrange,
+    orange, darkOrange, darkYellow, yellow, lightYellow, green, darkGreen, lightGreen,
+    lightBlue, blue, darkBlue, lightPurple, purple, pink, darkPurple;
+
+    
+    white = colors[0].values;
+    black = colors[1].values;
+    gray = colors[2].values.balanced.values;
+    lightGray = colors[2].values.light.values;
+    darkGray = colors[2].values.dark.values;
+    red = colors[3].values.balanced.values;
+    lightRed = colors[3].values.light.values;
+    darkRed = colors[3].values.dark.values;
+    lightOrange = colors[4].values.light.values;
+    orange = colors[4].values.balanced.values;
+    darkOrange = colors[4].values.dark.values;
+    darkYellow = colors[5].values.dark.values;
+    yellow = colors[5].values.balanced.values;
+    lightYellow = colors[5].values.light.values;
+    green = colors[6].values.balanced.values;
+    darkGreen = colors[6].values.dark.values;
+    lightGreen = colors[6].values.light.values;
+    lightBlue = colors[7].values.light.values;
+    blue = colors[7].values.balanced.values;
+    darkBlue = colors[7].values.dark.values;
+    lightPurple = colors[8].values.light.values;
+    purple = colors[8].values.balanced.values;
+    darkPurple = colors[8].values.dark.values;
+
+
+
+
 function pushColorsToArrays() {
     // loop through names array
     for (var y =0;y<names.length;y++) {
@@ -1710,7 +1835,6 @@ function pushColorsToArrays() {
             if (hslColorHue > minHue && hslColorHue < maxHue &&
                 hslColorLuminance > 0 && hslColorLuminance <= 40 && hslColorSaturation > 15 && hslColorSaturation < 55 && hslColorSaturation !== 0) {
                 divideColors(darkArray);
-                
             }
             // conditional for balanced spectrum colors
             else if (hslColorHue > minHue && hslColorHue < maxHue &&
@@ -1743,8 +1867,8 @@ function pushColorsToArrays() {
         // needs some tweaking
         colorDivider(0, 15, darkRed, red, lightRed);
         colorDivider(350, 360, darkRed, red, lightRed)
-        colorDivider(15, 35, brown, orange, lightOrange);
-        colorDivider(35, 60, brown, yellow, lightYellow);
+        colorDivider(15, 35, darkOrange, orange, lightOrange);
+        colorDivider(35, 60, darkYellow, yellow, lightYellow);
         colorDivider(60, 150, darkGreen, green, lightGreen);
         colorDivider(150, 250, darkBlue, blue, lightBlue);
         colorDivider(250, 350, darkPurple, purple, lightPurple);
@@ -1754,25 +1878,103 @@ function pushColorsToArrays() {
 pushColorsToArrays();
 /* #### OUTPUT CODE ##### */
 // this function outputs the selected array to the front end
-const outputColors = (selectedArray) => {
-    for (var x = 0; x < selectedArray.length; x++) {
-        let output, colorBox, colorOutput;
-        colorOutput = selectedArray[x];
-        output = document.querySelector('.output');
-        colorBox = document.createElement('div');
-        colorBox.style.background = `${colorOutput}`;
-        colorBox.classList.add('col-sm-12', 'col-md-3', 'py-5', 'text-center', 'output__color');
-        // only outputting hex for now but will add a converter in the future
-        colorBox.innerHTML = `<h2 class="text-white color-output__text">${colorOutput}</h2>`;
-        output.appendChild(colorBox);
-        // click handler for copy to clipboard
-        colorBox.addEventListener('click', function(){
-            // listens for clicks, creates the copied to clipboard text
-            let textToCopy, textArea, copiedContainer;
+
+
+const displaySwatches = () => {
+    let swatchContainer, swatchElement, output, colorName;
+    // loop through the array and create the swatches
+    for(var i=0; i<colors.length;i++) {
+        // elements
+        swatchContainer = document.createElement('div');
+        swatchElement = document.createElement('div');
+        // have the ids match the index of the arrays   
+        swatchElement.id = i;
+        // add classes
+        swatchContainer.classList.add('col', 'text-center','p-1', 'swatch-container');
+        swatchElement.classList.add('sphere');
+        // get color name
+        colorName = colors[i].name.toLowerCase();
+        swatchElement.style.background = colorName;
+        // target the output
+        output = document.querySelector('.swatches-output');
+        // append to output
+        output.appendChild(swatchContainer);
+        swatchContainer.appendChild(swatchElement);
+    }
+    globalClickHandler();
+}
+
+const swatchesClickHandler = () => {
+    let swatches;
+    swatches = document.querySelectorAll('.sphere');
+    for(let i=0; i<swatches.length; i++) {
+        swatches[i].addEventListener('click', function(){
+            // passes the id or index to the output function
+            refreshOutput();
+            outputColors(i);
+        });
+    }
+}
+
+const outputColors = (i) => {
+    // one loop for < 2 (black and white, they don't have three shades)
+    if(i<2) {
+        for(var y=0;y<colors[i].values.length;y++) {
+            createColorDivs(colors[i].values[y]);
+        }
+    // every other colour has three different arrays
+    } else {
+        for(var x=0;x<colors[i].values.light.values.length;x++) {
+            createColorDivs(colors[i].values.light.values[x]);
+        }
+        for(var z=0;z<colors[i].values.balanced.values.length;z++) {
+            createColorDivs(colors[i].values.balanced.values[z]);
+        }
+        for(var w=0;w<colors[i].values.dark.values.length;w++) {
+            createColorDivs(colors[i].values.dark.values[w]);
+        }
+    }
+}
+
+const createColorDivs = (colorValue) => {
+    let output, colorDiv;
+    output = document.querySelector('.output');
+    colorDiv = document.createElement('div');
+    colorDiv.style.background = colorValue;
+    colorDiv.innerHTML = `<h2 class="text-white color-output__text">${colorValue}</h2>`
+    colorDiv.classList.add('col-sm-12', 'col-md-3', 'py-5', 'text-center', 'output__color');
+    output.appendChild(colorDiv);
+}
+
+// deletes what was outputted on the first click when clicking on a new color
+const refreshOutput = () => {
+    let output;
+    output = document.querySelector('.output');
+    output.innerHTML = '';
+}
+
+const globalClickHandler = () => {
+    let output;
+    output = document.querySelector('.output');
+    output.addEventListener('click', function() {
+        copyToClipboard();
+    })
+}
+
+
+const copyToClipboard = () => {
+    let textToCopy, textArea, copiedContainer, colorBox;
+            // set the right container for the classes on the parent
+            // even if the user clicks on the text itself
+            if(event.target.classList.contains('color-output__text')){
+                colorBox = event.target.parentElement;
+            } else {
+                colorBox = event.target;
+            }
             copiedContainer = document.createElement('div');
             copiedContainer.classList.add('d-none', 'copied-to__clipboard', 'slide-down');
             copiedContainer.innerHTML = '<p>Copied to Clipboard!</p>';
-            textToCopy = colorBox.innerText;
+            textToCopy = event.target.innerText;
             // handles the copying creating a temporary textarea to use select()
             textArea = document.createElement('textarea');
             document.body.appendChild(textArea);
@@ -1791,66 +1993,13 @@ const outputColors = (selectedArray) => {
                 colorBox.classList.remove('no-pointer__events');
                 colorBox.removeChild(copiedContainer);
             }, 3000);
-        });
-    }
-    // remove the first child which is the color name
-    let firstChild;
-        firstChild = document.querySelector('.output').firstChild;
-        firstChild.remove();
-}
-// refreshes the output clearing whatever was searched before
-// basically a 'clear all' function
-const refreshOutput = () => {
-    let output;
-    output = document.querySelector('.output');
-    // erases anything that's inside the innerhtml
-    output.innerHTML = '';
-}
-// function to get a random color from the names array
-// param to decide which one is not locked?
-/* ===== NOT USED AT tHE MOMENT, THIS WOULD BE FOR THE PALETTE GENERATOR ONLY ===== */
-const getColor = (array) => {
-    // function that gets a random color from the names array 
-    let randomValue, randomColor;
-    randomValue = Math.floor(Math.random() * array.length);
-    randomColor = array[randomValue];
-    return randomColor;
-}
-// function to display swatches in the front end
-const displaySwatches = () => {
-    // front end output
-    let swatchesOutput, sphereContainer, sphereElement, arrayNameToLower, colorText;
-    swatchesOutput = document.querySelector('.demoOutput');
-    // loop through the array container
-    for(var i=0;i<arrayContainer.length; i++) {
-        // check if the array had any colours pushed into it
-        if(arrayContainer[i][0] !== undefined) {
-            // create the elements during the loop
-            sphereContainer = document.createElement('div');
-            sphereElement = document.createElement('div');
-            // create p tag for the text description
-            colorText = document.createElement('p');
-            colorText.innerHTML = arrayContainer[i][0];
-            colorText.classList.add('color__text', 'py-3', 'text-white');
-            // edit the classes for the swatch container
-            sphereContainer.classList.add('col','text-center','p-1', 'swatch-container');
-            sphereElement.classList.add('sphere');
-            sphereElement.style.background = arrayContainer[i][0];
-            // place the elements in the dom
-            sphereContainer.appendChild(sphereElement);
-            swatchesOutput.appendChild(sphereContainer);
-            sphereContainer.appendChild(colorText);
-            // use to lower to be able to call light and dark arrays on hover
-            arrayNameToLower = arrayContainer[i][0].toLowerCase();
-            sphereElement.setAttribute('onclick', `refreshOutput();outputColors(${arrayNameToLower})`);
-            console.log(sphereContainer)
-            // display the selectors for light, dark and balanced arrays onmouseover - [to do]
-        } else {
-            null
-        }
-    } 
+
 }
 
 
+// vanilla js doc ready
+document.addEventListener("DOMContentLoaded", function() {
+    displaySwatches();
+    swatchesClickHandler();
 
- 
+ });

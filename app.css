@@ -2,7 +2,8 @@ body {
     margin: 0;
     padding:0;
     background: rgb(55,55,55);
-background: radial-gradient(circle, rgba(30,30,30,1) 0%, rgba(05,05,05,1) 100%);
+    background-repeat: no-repeat;
+background: radial-gradient(circle, rgba(30,30,30,1) 0%, rgba(25,25,25,1) 100%);
 }
 p {
     margin-bottom: 5px;
