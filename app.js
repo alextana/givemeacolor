@@ -1942,7 +1942,7 @@ const createColorDivs = (colorValue) => {
     colorDiv = document.createElement('div');
     colorDiv.style.background = colorValue;
     colorDiv.innerHTML = `<h2 class="text-white color-output__text">${colorValue}</h2>`
-    colorDiv.classList.add('col-sm-12', 'col-md-3', 'py-5', 'text-center', 'output__color');
+    colorDiv.classList.add('col-6', 'col-md-2', 'py-5', 'text-center', 'output__color');
     output.appendChild(colorDiv);
 }
 
