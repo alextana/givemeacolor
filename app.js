@@ -21,10 +21,7 @@ Checklist {
 }
 
 */
-
 'use strict';
-
-
 // color array
 let names = [
     ["000000", "Black"],
@@ -1733,7 +1730,11 @@ let white, gray, lightGray, darkGray, black, red, lightRed, darkRed, lightOrange
     orange, darkOrange, darkYellow, yellow, lightYellow, green, darkGreen, lightGreen,
     lightBlue, blue, darkBlue, lightPurple, purple, pink, darkPurple;
 
-    
+    /* 
+       color values inside the color object
+       needed for the converter to assign colors
+       to the right arrays
+    */
     white = colors[0].values;
     black = colors[1].values;
     gray = colors[2].values.balanced.values;
@@ -1757,8 +1758,6 @@ let white, gray, lightGray, darkGray, black, red, lightRed, darkRed, lightOrange
     lightPurple = colors[8].values.light.values;
     purple = colors[8].values.balanced.values;
     darkPurple = colors[8].values.dark.values;
-
-
 
 
 function pushColorsToArrays() {
@@ -1838,7 +1837,7 @@ function pushColorsToArrays() {
             }
             // conditional for balanced spectrum colors
             else if (hslColorHue > minHue && hslColorHue < maxHue &&
-                hslColorLuminance > 40 && hslColorLuminance < 58 && hslColorSaturation >= 65 && hslColorSaturation !== 0) {
+                hslColorLuminance > 40 && hslColorLuminance < 58 && hslColorSaturation >= 65 && hslColorSaturation > 35) {
                 divideColors(balancedArray);
             }
             // conditional for Light colors
@@ -1868,17 +1867,16 @@ function pushColorsToArrays() {
         colorDivider(0, 15, darkRed, red, lightRed);
         colorDivider(350, 360, darkRed, red, lightRed)
         colorDivider(15, 35, darkOrange, orange, lightOrange);
-        colorDivider(35, 60, darkYellow, yellow, lightYellow);
-        colorDivider(60, 150, darkGreen, green, lightGreen);
-        colorDivider(150, 250, darkBlue, blue, lightBlue);
-        colorDivider(250, 350, darkPurple, purple, lightPurple);
+        colorDivider(35, 69, darkYellow, yellow, lightYellow);
+        colorDivider(70, 169, darkGreen, green, lightGreen);
+        colorDivider(170, 242, darkBlue, blue, lightBlue);
+        colorDivider(243, 350, darkPurple, purple, lightPurple);
     }
 }
 // call function to push into the arrays
 pushColorsToArrays();
 /* #### OUTPUT CODE ##### */
 // this function outputs the selected array to the front end
-
 
 const displaySwatches = () => {
     let swatchContainer, swatchElement, output, colorName;
@@ -1903,7 +1901,6 @@ const displaySwatches = () => {
     }
     globalClickHandler();
 }
-
 const swatchesClickHandler = () => {
     let swatches;
     swatches = document.querySelectorAll('.sphere');
@@ -1915,7 +1912,6 @@ const swatchesClickHandler = () => {
         });
     }
 }
-
 const outputColors = (i) => {
     // one loop for < 2 (black and white, they don't have three shades)
     if(i<2) {
@@ -1935,7 +1931,6 @@ const outputColors = (i) => {
         }
     }
 }
-
 const createColorDivs = (colorValue) => {
     let output, colorDiv;
     output = document.querySelector('.output');
@@ -1945,14 +1940,12 @@ const createColorDivs = (colorValue) => {
     colorDiv.classList.add('col-6', 'col-md-2', 'py-5', 'text-center', 'output__color');
     output.appendChild(colorDiv);
 }
-
 // deletes what was outputted on the first click when clicking on a new color
 const refreshOutput = () => {
     let output;
     output = document.querySelector('.output');
     output.innerHTML = '';
 }
-
 const globalClickHandler = () => {
     let output;
     output = document.querySelector('.output');
@@ -1960,17 +1953,11 @@ const globalClickHandler = () => {
         copyToClipboard();
     })
 }
-
-
 const copyToClipboard = () => {
     let textToCopy, textArea, copiedContainer, colorBox;
             // set the right container for the classes on the parent
             // even if the user clicks on the text itself
-            if(event.target.classList.contains('color-output__text')){
-                colorBox = event.target.parentElement;
-            } else {
-                colorBox = event.target;
-            }
+            event.target.classList.contains('color-output__text') ? colorBox = event.target.parentElement : colorBox = event.target
             copiedContainer = document.createElement('div');
             copiedContainer.classList.add('d-none', 'copied-to__clipboard', 'slide-down');
             copiedContainer.innerHTML = '<p>Copied to Clipboard!</p>';
@@ -1993,13 +1980,9 @@ const copyToClipboard = () => {
                 colorBox.classList.remove('no-pointer__events');
                 colorBox.removeChild(copiedContainer);
             }, 3000);
-
 }
-
-
 // vanilla js doc ready
 document.addEventListener("DOMContentLoaded", function() {
     displaySwatches();
     swatchesClickHandler();
-
  });
